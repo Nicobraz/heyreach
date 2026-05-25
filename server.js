@@ -1,4 +1,4 @@
-server.js
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 
@@ -14,16 +14,20 @@ app.post("/heyreach", async (req, res) => {
     const lead = req.body;
 
     await axios.post(
-      "https://api.apollo.io/api/v1/contacts",
+      "https://api.apollo.io/v1/contacts",
       {
-        api_key: process.env.APOLLO_API_KEY,
         first_name: lead.firstName || "",
         last_name: lead.lastName || "",
         email: lead.email || "",
         organization_name: lead.company || "",
         title: lead.title || "",
         linkedin_url: lead.linkedinUrl || "",
-        run_dedupe: true
+      },
+      {
+        headers: {
+          "x-api-key": process.env.APOLLO_API_KEY,
+          "Content-Type": "application/json",
+        },
       }
     );
 
