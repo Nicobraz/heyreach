@@ -5,8 +5,9 @@ const axios = require("axios");
 const app = express();
 
 app.use(express.json());
+app.use(express.static("public"));
 
-app.post("/heyreach", async (req, res) => {
+app.post("/mint-scout", async (req, res) => {
   try {
 
     console.log("Webhook received:", req.body);
@@ -42,9 +43,6 @@ app.post("/heyreach", async (req, res) => {
   }
 });
 
-app.get("/", (req,res)=>{
-  res.send("Webhook live");
-});
 
 const PORT = process.env.PORT || 3000;
 
